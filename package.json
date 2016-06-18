@@ -1,0 +1,28 @@
+{
+  "name": "cnbcmap",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jcarless/CNBC_Map.git"
+  },
+  "author": "Jerome Carless",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jcarless/CNBC_Map/issues"
+  },
+  "homepage": "https://github.com/jcarless/CNBC_Map#readme",
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "cheerio": "^0.20.0",
+    "express": "^4.14.0",
+    "mongoose": "^4.5.0",
+    "morgan": "^1.7.0",
+    "request": "^2.72.0"
+  }
+}
