@@ -27,11 +27,11 @@ db.once('open', function () {
 app.set('views', __dirname + '/app/views');
 
 // load the static files
-var staticContentFolder = __dirname + '/app/public';
+var staticContentFolder = __dirname + '/public';
 app.use(express.static(staticContentFolder));
 
 //routing
-require("./app/routes/routes.js")(app);
+require("./app/Routes/routes.js")(app);
 
 var PORT = process.env.PORT || 3000;
 

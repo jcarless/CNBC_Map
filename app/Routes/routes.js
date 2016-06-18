@@ -7,6 +7,7 @@ module.exports = function(app) {
 
 
     app.get('/', function(req, res){
+        console.log('at: ' + '/');
         request('http://www.cnbc.com/', function(error, response, html) {
             var $ = cheerio.load(html);
             $('h3.headline').each(function(i, element) {
@@ -44,11 +45,45 @@ module.exports = function(app) {
                 for(var i = 0; i < article.length; i++){
                     headlines.push({title: article[i].title, id: article[i]._id});
                 }
-                res.json(headlines);
+                // res.json(headlines);
+                res.send('index.html');
                 console.log(headlines);
             });
     });
 
+
+    app.get('/:id', function(req, res){
+        Article.findOne({
+            _id: req.params.id
+        })
+            .exec(function(err, article) {
+                if(err) {
+                    console.log(err);
+                    //res.send('error occured')
+                    return callback(err);
+                } else {
+                    var url = article.link;
+                    console.log('url: ' + url);
+                    request("http://www.cnbc.com/2016/05/30/feds-bullard-says-global-markets-seem-well-prepared-for-summer-rate-hike.html", function(error, response, html){
+                        if(error) {
+                            console.log(error);
+                            //res.send('error occured')
+                            return callback(error);
+                        } else {
+                            var $ = cheerio.load(html);
+                            var data = {articleText:''};
+                            data.article = article;
+                            $('div.group').each(function(i, element){
+                                articleText = $(this).children('p').text();
+                                data.articleText += articleText;
+                            });
+
+                            res.json(data);
+                        }
+                    }); //request
+                } //if/then/else
+            }); //exec
+    });
 
 
 };
